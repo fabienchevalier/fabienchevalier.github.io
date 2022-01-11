@@ -1,11 +1,12 @@
 ---
 layout: single
+title: Portofolio | Présentation
 permalink: /presentation/
 toc: true
 toc_label: "Table des matières"
 toc_icon: "cog"
 ---
-# Mon école : H3 Campus à Poissy
+## Mon école : H3 Campus à Poissy
 ![H3Campus](/assets/images/h3campus.jpeg)
 Le groupe H3 CAMPUS forme des jeunes depuis 1970.
 
