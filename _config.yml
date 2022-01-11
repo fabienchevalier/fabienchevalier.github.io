@@ -14,6 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Portofolio
+subtitle: BTS SIO option SISR 2021-2022
 email: contact@fchevalier.net
 description: >- # this means to ignore newlines until "baseurl:"
   Site web portofolio regroupant l'ensemble de mes projets et activités effectuées lors de mon cursus en BTS SIO option SISR 
