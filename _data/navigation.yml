@@ -1,10 +1,12 @@
 main:
-  - title: "Parcours de Professionnalisation (E4)"
+  - title: "Présentation"
+    url: /presentation/
+  - title: "Parcours Pro (E4)"
     url: /parcourspro/
-  - title: "Ateliers de Professionnalisation (E4)"
+  - title: "Ateliers Pro (E4)"
     url: /atelierspro/
-  - title: "Réalisations professionnelles (E5)"
+  - title: "Réalisations Pro(E5)"
     url: /realisationpro/
-  - title: "Veille technologique"
+  - title: "Veille Techno"
     url: /veille/
   
