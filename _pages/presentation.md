@@ -6,7 +6,7 @@ toc_label: "Table des matières"
 toc_icon: "cog"
 ---
 # Mon école : H3 Campus à Poissy
-![H3Campus](/assets/h3campus.jpeg)
+![H3Campus](/assets/images/h3campus.jpeg)
 Le groupe H3 CAMPUS forme des jeunes depuis 1970.
 
 Nos écoles proposent deux types de formation : en alternance et en initial, en fonction des demandes des candidats.
