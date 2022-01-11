@@ -1,12 +1,14 @@
 main:
   - title: "Présentation"
     url: /presentation/
+    description: "Présentation de l'entreprise d'acceuil et du cursus scolaire"
   - title: "Parcours Pro (E4)"
     url: /parcourspro/
+    description: "Parcours de professionnalisation sous forme de projets réalisés en classe"
   - title: "Ateliers Pro (E4)"
-    url: /atelierspro/
-  - title: "Réalisations Pro(E5)"
-    url: /realisationpro/
-  - title: "Veille Techno"
+    description: "Tableau de synthèse ainsi que les activités réalisés en classe et en entreprise"
+  - title: "Réalisations Pro (E5)"
+    description: "Réalisations de projet pour la soutenance à l'oral (épreuve E5)"
+  - title: "Veille Technologique"
     url: /veille/
   
