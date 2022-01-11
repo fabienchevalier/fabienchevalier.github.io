@@ -21,3 +21,22 @@ Aujourd’hui, H3 CAMPUS forme chaque année plus de 1200 étudiants répartis s
 * H3 HITEMA à ISSY-LES-MOULINEAUX s’est spécialisé dans les formations post Bac jusqu’à Bac+5 dans les domaines des systèmes d’information : développement, développement web, systèmes réseaux, sécurité et management des systèmes d’information.
 
 * H3 CAMPUS POISSY dispense des formations BTS et bachelors dans les domaines commercial et webmarketing, administratif, informatique de réseau, comptable, immobilier, notarial et paramédical.
+
+## Mon entreprise : NS2B
+
+### Présentation de l'entreprise:
+
+![NS2B](/assets/images/ns2b.jpeg)
+
+NS2B est une société basée à Poissy en métropole, mais aussi présente dans les DOMs (Réunion et Antilles), spécialisée dans l’intégration de solution de gestions, l’infogérance et la gestion d’entreprises. Mes fonctions au sein du groupe sont diverses et variées, mais j’assure en majorité des fonctions d’administration système et réseaux. L’entreprise propose à ses clients différents services type SaaS, comme la fourniture d’un bureau à distance complet sous Windows, des systèmes de sauvegarde historisées sur des Datacenter sécurisés, où encore un logiciel de comptabilité collaborative dans le cloud.
+
+### Mes missions au sein de l'entreprise:
+
+Mes missions au sein de l’équipe support hébergement :
+
+* Support client et résolutions de tickets liés à l’utilisation des services hébergés par le groupe
+* Administration des systèmes virtualisés (technologie HyperV/Windows Server/ActiveDirectory)
+* Déploiement de serveurs dédiés COALA, mise en réseau et support
+* Interventions sur site, dans le cadre de client sous contrats d’infogérance.
+* Plus d’informations sur le site web de l’entreprise : https://www.ns2b.fr
+
