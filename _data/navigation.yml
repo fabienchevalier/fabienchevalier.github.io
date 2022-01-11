@@ -1,6 +1,4 @@
 main:
-  - title: "Présentation"
-    url: /presentation/
   - title: "Parcours de Professionnalisation (E4)"
     url: /parcourspro/
   - title: "Ateliers de Professionnalisation (E4)"
