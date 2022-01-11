@@ -13,7 +13,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Portofolio - Fabien CHEVALIER
+title: Portofolio
 subtitle: BTS SIO option SISR 2021-2022
 email: contact@fchevalier.net
 description: >- # this means to ignore newlines until "baseurl:"
@@ -21,7 +21,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 twitter_username: username
 github_username: username
 minimal_mistakes_skin: default
-search: true
+search: false
 locale: "fr"
 
 # Build settings
