@@ -12,3 +12,47 @@ main:
   - title: "Veille"
     url: /veille/
   
+docs:
+  - title: Présentation
+    children:
+      - title: "Mon école"
+        url: /docs/quick-start-guide/
+      - title: "Mon entreprise"
+        url: /docs/structure/
+      - title: "Mes expériences"
+        url: /docs/installation/
+
+  - title: Parcours de Professionnalisation (E4)
+    children:
+      - title: "Projet 1.1"
+        url: /docs/configuration/
+      - title: "Projet 1.2"
+        url: /docs/navigation/
+      - title: "Projet 2"
+        url: /docs/ui-text/
+      - title: "Projet 3"
+        url: /docs/authors/
+
+  - title: Ateliers de professionnalisation (E4)
+    children:
+      - title: "Tableau de synthèse"
+        url: /docs/posts/
+      - title: "Activités école"
+        url: /docs/pages/
+      - title: "Activités entreprise"
+ 
+  - title: Réalisations professionnelles (E5)
+    children:
+      - title: "Active Directory et GPO"
+        url: /docs/stylesheets/
+      - title: "PfSense"
+        url: /docs/javascript/
+
+   - title: Veille technologique
+    children:
+      - title: "Organisation"
+        url: /docs/stylesheets/
+      - title: "Thème de spécialisation"
+        url: /docs/javascript/
+      - title: "Flux RSS"
+        url: /docs/javascript/
