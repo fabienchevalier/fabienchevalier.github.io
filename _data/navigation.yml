@@ -1,9 +1,12 @@
 main:
-  - title: "Posts"
-    url: /posts/
-  - title: "Categories"
-    url: /categories/
-  - title: "Tags"
-    url: /tags/
-  - title: "About"
-    url: /about/
+  - title: "Présentation"
+    url: /presentation/
+  - title: "Parcours de Professionnalisation (E4)"
+    url: /parcourspro/
+  - title: "Ateliers de professionnalisation (E4)"
+    url: /atelierspro/
+  - title: "Réalisations professionnelles (E5)"
+    url: /realisationpro/
+  - title: "Veille technologique"
+    url: /veille/
+  
