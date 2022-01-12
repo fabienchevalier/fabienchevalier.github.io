@@ -1,4 +1,7 @@
 main:
+  - title: "Compétences"
+    url: /skills/
+    description: "Résumé des compétences acquises"
   - title: "Présentation"
     url: /presentation/
     description: "Présentation de l'entreprise d'acceuil et du cursus scolaire"
