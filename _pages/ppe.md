@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Portofolio - PPE/Parcours de professionnalisation (E4)
+title: Portofolio - PPE (E4)
 header:
     overlay_image: /assets/images/header.jpg
     overlay_filter: 0.5
