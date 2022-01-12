@@ -1,6 +1,9 @@
 ---
 layout: single
 title: Portofolio - PPE (E4)
+header:
+    overlay_image: /assets/images/header.jpg
+    overlay_filter: 0.5
 permalink: /ppe/
 toc: true
 toc_label: "Table des matières"
