@@ -63,7 +63,7 @@ author:
   bio    : "Fabien, 27 ans, passionné par l'informatique, le cloud et les nouvelles technologies."
   links:
     - label: "Linkedin"
-      icon: "fas fa-fw fa-linkedin"
+      icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/fabche/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
