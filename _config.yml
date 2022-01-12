@@ -80,7 +80,7 @@ footer:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/"
-    - label: "Contact"
+    - label: "Email"
       icon: "fas fa-fw fa-envelope"
       url: "mailto:contact@fchevalier.net"
 
