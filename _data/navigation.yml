@@ -2,9 +2,6 @@ main:
   - title: "Présentation"
     url: /presentation/
     description: "Présentation de l'entreprise d'acceuil et du cursus scolaire"
-  - title: "Compétences"
-    url: /skills/
-    description: "Résumé des compétences acquises"
   - title: "PPE (E4)"
     url: /ppe/
     description: "Parcours de professionnalisation sous forme de projets réalisés en classe"
