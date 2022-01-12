@@ -69,7 +69,7 @@ author:
       icon: "fab fa-fw fa-github"
       url: "https://github.com/"
     - label: "Contact"
-      icon: "fab fa-fw fa-envelope-square"
+      icon: "fab fa-fw fa-envelope"
       url: "mailto:contact@fchevalier.net"
 
 footer:
