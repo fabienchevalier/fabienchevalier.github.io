@@ -1,6 +1,9 @@
 ---
 layout: single
 title: Portofolio - Présentation
+header:
+    overlay_image: /assets/images/header.jpg
+    overlay_filter: 0.5
 permalink: /presentation/
 toc: true
 toc_sticky: true
