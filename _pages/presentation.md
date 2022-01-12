@@ -3,6 +3,7 @@ layout: single
 title: Portofolio - Présentation
 permalink: /presentation/
 toc: true
+toc_sticky: true
 toc_label: "Table des matières"
 toc_icon: "cog"
 ---
