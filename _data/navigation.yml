@@ -3,7 +3,7 @@ main:
     url: /presentation/
     description: "Présentation de l'entreprise d'acceuil et du cursus scolaire"
   - title: "PPE (E4)"
-    url: /parcourspro/
+    url: /ppe/
     description: "Parcours de professionnalisation sous forme de projets réalisés en classe"
   - title: "Ateliers Pro (E4)"
     description: "Tableau de synthèse ainsi que les activités réalisés en classe et en entreprise"
