@@ -62,18 +62,15 @@ author:
   avatar : "/assets/images/bio-photo.jpeg"
   bio    : "Fabien, 27 ans, passionné par l'informatique, le cloud et les nouvelles technologies."
   links:
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
-      url: "https://"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/"
+    - label: "Linkedin"
+      icon: "fas fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/fabche/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+    - label: "Contact"
+      icon: "fab fa-fw fa-envelope-square"
+      url: "mailto:contact@fchevalier.net"
 
 footer:
   links:
