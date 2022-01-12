@@ -1,14 +1,14 @@
 ---
 layout: single
-title: Portofolio - PPE (E4)
+title: Portofolio - PPE/Parcours de professionnalisation (E4)
 header:
     overlay_image: /assets/images/header.jpg
     overlay_filter: 0.5
 permalink: /ppe/
 toc: true
+toc_sticky: true
 toc_label: "Table des matières"
 toc_icon: "cog"
-toc_sticky: true
 ---
 ## Présentation du contexte
 

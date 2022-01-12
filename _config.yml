@@ -60,7 +60,7 @@ plugins:
 author:
   name   : "Fabien CHEVALIER"
   avatar : "/assets/images/bio-photo.jpeg"
-  bio    : "Fabien, 27 ans, passionné par l'informatique, le cloud et les nouvelles technologies."
+  bio    : "Fabien, 27 ans, passionné par l'informatique, le webdesign, le cloud et les nouvelles technologies."
   links:
     - label: "Linkedin"
       icon: "fab fa-fw fa-linkedin"
