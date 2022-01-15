@@ -12,3 +12,5 @@ main:
     description: "Réalisations de projet pour la soutenance à l'oral (épreuve E5)"
   - title: "Veille"
     url: /veille/
+  - title: "Compétences"
+    url: /skills/
