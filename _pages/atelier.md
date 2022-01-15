@@ -31,8 +31,7 @@ toc_icon: "cog"
 - [Activité 01 : Mise en place d'un réseau WorkGroup, partages et autorisations](/assets/files/atelier/ecole/mise_en_place_workgroup.docx)
 - [Activité 02 : Gestion des utilisateurs par script à partir d'un fichier CSV](/assets/files/atelier/ecole/gestion-scripts-utilisateurs.docx)
 - [Activité 03 : Mise en place d’un serveur DHCP sous Windows Server](/assets/files/atelier/ecole/serveur_dhcp_windows.docx)
-- [Activité 04 : "Mise en place d'un site web portofolio avec GitHub et Jekyll](/assets/files/atelier/ecole/mise_en_place_site_web.docx)
-"]
+- [Activité 04 : Mise en place d'un site web portofolio avec GitHub et Jekyll](/assets/files/atelier/ecole/mise_en_place_site_web.docx)
 
 
 

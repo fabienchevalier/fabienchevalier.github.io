@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Parcours de professionnalisation
+title: Parcours de professionnalisation (E4)
 header:
     overlay_image: /assets/images/header.jpg
     overlay_filter: 0.5
