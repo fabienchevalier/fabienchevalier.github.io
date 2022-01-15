@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Portofolio - PPE (E4)
+title: Parcours de professionnalisation
 header:
     overlay_image: /assets/images/header.jpg
     overlay_filter: 0.5
@@ -22,11 +22,11 @@ Les PPE réalisés au cours du BTS SIO se basent sur le contexte de la "Maison d
 ### Les PPE
 La réalisation de 4 PPE a été demandée durant mon cursus. Les sujets ainsi que le contexte sont téléchargeables via la liste ci-dessous au format PDF.
 
-- [Contexte M2L](/assets/files/m2l-organisation.pdf)
-- [Sujet du Projet 1.1](/assets/files/ppe1-1.pdf)
-- [Sujet du Projet 1.2](/assets/files/ppe1-2.pdf)
-- [Sujet du Projet 2.0](/assets/files/ppe2.pdf)
-- [Sujet du Projet 3.0](/assets/files/ppe3.pdf)
+- [Contexte M2L](/assets/files/ppe/m2l-organisation.pdf)
+- [Sujet du Projet 1.1](/assets/files/ppe/ppe1-1.pdf)
+- [Sujet du Projet 1.2](/assets/files/ppe/ppe1-2.pdf)
+- [Sujet du Projet 2.0](/assets/files/ppe/ppe2.pdf)
+- [Sujet du Projet 3.0](/assets/files/ppe/ppe3.pdf)
 
 ## Projet 1.1 : Mise à niveau du parc informatique
 
@@ -45,7 +45,7 @@ Ces matériels sont répartis en différents lots, à savoir :
 
 ### Téléchargement
 
-Vous pouvez télécharger le dossier PPE 1-1 au format PDF en [cliquant ici](/assets/files/a_ppe1-1.pdf)
+Vous pouvez télécharger le dossier PPE 1-1 au format PDF en [cliquant ici](/assets/files/ppe/a_ppe1-1.pdf)
 
 ## Projet 1.2 : Système de stockage sécurisé
 
@@ -57,7 +57,7 @@ Dans cette prestation vous devez réaliser un document d’analyse de différent
 
 ### Téléchargement
 
-Vous pouvez télécharger le dossier PPE 1-2 au format PDF en [cliquant ici](/assets/files/a_ppe1-2.pdf)
+Vous pouvez télécharger le dossier PPE 1-2 au format PDF en [cliquant ici](/assets/files/ppe/a_ppe1-2.pdf)
 
 ## Projet 2.0 : Refonte de l'infrastructure réseau
 
@@ -78,7 +78,7 @@ Les missions demandées sont:
 
 ### Téléchargement
 
-Vous pouvez télécharger le dossier PPE2 au format PDF en [cliquant ici](/assets/files/a_ppe2.pdf)
+Vous pouvez télécharger le dossier PPE2 au format PDF en [cliquant ici](/assets/files/ppe/a_ppe2.pdf)
 
 ## Projet 3.0 : Gestion du parc informatique et d'incident
 
@@ -92,4 +92,4 @@ Le projet 3.0 consiste en:
 
 ### Téléchargement
 
-Vous pouvez télécharger le dossier PPE3 au format PDF en [cliquant ici](/assets/files/a_ppe3.pdf)
+Vous pouvez télécharger le dossier PPE3 au format PDF en [cliquant ici](/assets/files/ppe/a_ppe3.pdf)

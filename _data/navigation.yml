@@ -1,11 +1,11 @@
 main:
-  - title: "Présentation"
+  - title: "Qui suis-je?"
     url: /presentation/
     description: "Présentation de l'entreprise d'acceuil et du cursus scolaire"
   - title: "Parcours Pro (E4)"
     url: /ppe/
     description: "Parcours de professionnalisation sous forme de projets réalisés en classe"
-  - title: "Ateliers Pro (E4)"
+  - title: "Atelier Pro (E4)"
     url: /atelier/
     description: "Tableau de synthèse des compétences ainsi que les activités réalisés en classe et en entreprise"
   - title: "Réalisations Pro (E5)"
