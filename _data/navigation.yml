@@ -2,12 +2,12 @@ main:
   - title: "Présentation"
     url: /presentation/
     description: "Présentation de l'entreprise d'acceuil et du cursus scolaire"
-  - title: "PPE (E4)"
+  - title: "Parcours Pro (E4)"
     url: /ppe/
     description: "Parcours de professionnalisation sous forme de projets réalisés en classe"
   - title: "Ateliers Pro (E4)"
     url: /atelier/
-    description: "Tableau de synthèse ainsi que les activités réalisés en classe et en entreprise"
+    description: "Tableau de synthèse des compétences ainsi que les activités réalisés en classe et en entreprise"
   - title: "Réalisations Pro (E5)"
     description: "Réalisations de projet pour la soutenance à l'oral (épreuve E5)"
   - title: "Veille"
