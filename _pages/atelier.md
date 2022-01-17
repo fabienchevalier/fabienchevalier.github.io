@@ -49,7 +49,7 @@ toc_icon: "cog"
 
 > Cette section regroupe l'ensemble des activités réalisés en entreprise. Chaque production est téléchargeable via un lien direct au format Word (.docx) en cliquant sur le lien. Les documents sont protégés par un mot de passe communiqué au jury pour des raisons de confidentialités.
 
-> Il est aussi possible de télécharger une archive ZIP de l'ensemble des activités école en [cliquant ici](dossier_complet.zip)
+> Il est aussi possible de télécharger une archive ZIP de l'ensemble des activités entreprise en [cliquant ici](dossier_complet.zip)
 
 - [Activité 01 : Missions helpdesk et ticketing avec GLPI](/assets/files/atelier/entreprise/01-helpdesk_glpi.docx)
 - [Activité 02 : Monitoring et gestion à distance du parc informatique avec DATTO RMM](/assets/files/atelier/entreprise/02-monitoring_gestion_datto.docx)
