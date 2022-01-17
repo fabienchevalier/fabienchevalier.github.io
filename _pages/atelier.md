@@ -37,6 +37,26 @@ toc_icon: "cog"
 - [Activité 06 : Refonte du réseau de la M2L (simulation Packet Tracer)](/assets/files/atelier/ecole/06-routage_intervlan.docx)
   - _[routage_intervlan.pkt](/assets/files/atelier/ecole/06-routage_intervlan.pkt)_
 - [Activité 07 : Installation de GLPI et déploiement de l'agent Fusion-Inventory](/assets/files/atelier/ecole/07-glpi_fusion.docx)
+- [Activité 08 : Réalisation d'une infrastructure TOIP avec PacketTracer](/assets/files/atelier/ecole/08-toip_pkt.docx)
+  -_[toip.pkt](/assets/files/atelier/ecole/08-toip_pkt.docx)_
+- [Activité 09 : Mise en place des protocoles OSPF et HSRP sur des routeurs CISCO](/assets/files/atelier/ecole/09-ospf_hsrp.docx)
+  -_[ospf-hsrp.pjt](/assets/files/atelier/09-ospf-hsrp.pkt)
+- [Activité 10 : Gestion de projet dans le cadre de la mise en place d'infrastructure pour l'épreuve E5](/assets/files/atelier/ecole/10-infra_e5.docx)
+
+## Activités réalisées en entreprise
+
+### Première année
+
+> Cette section regroupe l'ensemble des activités réalisés en entreprise. Chaque production est téléchargeable via un lien direct au format Word (.docx) en cliquant sur le lien. Les documents sont protégés par un mot de passe communiqué au jury pour des raisons de confidentialités.
+
+> Il est aussi possible de télécharger une archive ZIP de l'ensemble des activités école en [cliquant ici](dossier_complet.zip)
+
+- [Activité 01 : Missions helpdesk et ticketing avec GLPI](/assets/files/atelier/entreprise/01-helpdesk_glpi.docx)
+- [Activité 02 : Monitoring et gestion à distance du parc informatique avec DATTO RMM](/assets/files/atelier/entreprise/02-monitoring_gestion_datto.docx)
+
+
+
+
 
 
 
