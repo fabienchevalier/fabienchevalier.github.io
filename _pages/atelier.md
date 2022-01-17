@@ -20,7 +20,7 @@ toc_icon: "cog"
 ### Téléchargement
 
 
-[Télécharger mon tableau de compétences (.xlsx)](/assets/files/atelier/synthese_chevalier_fabien.xlsx)
+[Télécharger mon tableau de compétences (.xlsx)](/assets/files/atelier/synthese_fabien_chevalier.xlsx)
 
 ## Activités réalisés en formation
 
