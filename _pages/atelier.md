@@ -41,7 +41,7 @@ toc_icon: "cog"
   - _[toip.pkt](/assets/files/atelier/ecole/08-toip_pkt.docx)_
 - [Activité 09 : Mise en place des protocoles OSPF et HSRP sur des routeurs CISCO](/assets/files/atelier/ecole/09-ospf_hsrp.docx)
   - _[ospf-hsrp.pjt](/assets/files/atelier/09-ospf-hsrp.pkt)
-- [Activité 10 : Gestion de projet dans le cadre de la mise en place d'infrastructure pour l'épreuve E5](/assets/files/atelier/ecole/10-infra_e5.docx)
+- [Activité 10 : Mise en place d'un serveur LAMP conteneurisé avec Docker](/assets/files/atelier/ecole/10-lamp-docker.docx)
 
 ## Activités réalisées en entreprise
 
