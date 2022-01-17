@@ -38,9 +38,9 @@ toc_icon: "cog"
   - _[routage_intervlan.pkt](/assets/files/atelier/ecole/06-routage_intervlan.pkt)_
 - [Activité 07 : Installation de GLPI et déploiement de l'agent Fusion-Inventory](/assets/files/atelier/ecole/07-glpi_fusion.docx)
 - [Activité 08 : Réalisation d'une infrastructure TOIP avec PacketTracer](/assets/files/atelier/ecole/08-toip_pkt.docx)
-  -_[toip.pkt](/assets/files/atelier/ecole/08-toip_pkt.docx)_
+  - _[toip.pkt](/assets/files/atelier/ecole/08-toip_pkt.docx)_
 - [Activité 09 : Mise en place des protocoles OSPF et HSRP sur des routeurs CISCO](/assets/files/atelier/ecole/09-ospf_hsrp.docx)
-  -_[ospf-hsrp.pjt](/assets/files/atelier/09-ospf-hsrp.pkt)
+  - _[ospf-hsrp.pjt](/assets/files/atelier/09-ospf-hsrp.pkt)
 - [Activité 10 : Gestion de projet dans le cadre de la mise en place d'infrastructure pour l'épreuve E5](/assets/files/atelier/ecole/10-infra_e5.docx)
 
 ## Activités réalisées en entreprise
