@@ -1,4 +1,4 @@
-I"b<div class="page__footer-follow">
+I".<div class="page__footer-follow">
   <ul class="social-icons">
     
       <li><strong>Follow:</strong></li>
@@ -7,15 +7,15 @@
     
       
         
-      
+          <li><a href="https://www.linkedin.com/in/fabche/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
         
       
         
-      
+          <li><a href="https://github.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
         
       
         
-      
+          <li><a href="mailto:contact@fchevalier.net" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope" aria-hidden="true"></i> Email</a></li>
         
       
     
