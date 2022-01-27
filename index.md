@@ -9,7 +9,7 @@ header:
         - label: "Me contacter"
           url : "mailto:hello@fchevalier.net"
         - label : "Télécharger mon CV"
-          url : "assets/files/CV-AdminSys.pdf"
+          url : "assets/files/CV-AdminSys-bts.pdf"
 classes: wide
 ---
 ## Portofolio en construction
