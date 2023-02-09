@@ -1,6 +1,6 @@
 languageCode = "en"
 languageName = "English"
-displayName = "EN"
+displayName = ":uk:"
 isoCode = "en"
 weight = 1
 rtl = false
@@ -17,7 +17,7 @@ dateFormat = "2 January 2006"
 [author]
    name = "Fabien CHEVALIER"
    image = "img/author.png"
-   headline = ":cloud: DevOps engineer / :notes: Music producer"
+   headline = ":cloud: DevOps engineer / :musical_note: Music producer"
    bio = "A little bit about you"
    links = [
      { email = "mailto:contact@fchevalier.net" },
