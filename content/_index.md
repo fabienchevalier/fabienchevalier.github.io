@@ -7,9 +7,7 @@ description: "Homepage"
 
 *I'm Fabien, 28 years old, currently learning the DevOps way at [Claranet](https://www.claranet.com/) as an intern in DevOps engineering.*
 
-## About this website 
-
-
+## About this website
 
 When I got the time, I try to write some articles (in :fr:) in order to organize my knowledge. You can find the lastest articles just below.
 
