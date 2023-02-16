@@ -1,0 +1,9 @@
+items:
+  - title: Google Anaytics (functional)
+    description: This code gives me insight into the number of people that visit my website, where they are from and what they are clicking on. We follow the guidelines of the Dutch Government, which describe how to use Google Analytics without requiring explicit consent.
+    is_functional: true
+    script_file: ga.js
+  - title:  Disqus chat
+    description: This code gives users the option to chat directly with me through a chat box in the bottom right corner. Visitor data will (also) be sent to Disqus.
+    is_functional: false
+    script_file: disqus.js
