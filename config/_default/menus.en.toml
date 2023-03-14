@@ -16,14 +16,9 @@
   weight = 10
 
 [[main]]
-  name = ":clipboard: cv"
-  pageRed = "cv"
-  weight = 30
-
- [[main]]
-   name = ":open_file_folder: categories"
-   pageRef = "categories"
-   weight = 20
+  name = ":open_file_folder: categories"
+  pageRef = "categories"
+  weight = 20
 
 # [[main]]
 #   name = "Tags"
