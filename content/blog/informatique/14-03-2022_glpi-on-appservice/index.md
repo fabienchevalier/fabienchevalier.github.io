@@ -50,7 +50,6 @@ Pour déployer notre instance de test, nous allons (dans l'ordre) définir :
 - Un groupe de ressource Azure qui va contenir l'ensemble des ressources
 - Un VPC (Virtual Network sur Azure)
 - 2 subnets : un dédié à la base de données, l'autre à l'application web.
-- Une zone DNS privée dédiée à la base de donnée MySQL
 - Un serveur managé Azure mysql flexible (plan Bs1)
 - Une base de donnée managée Azure SQL
 - Un plan App Service Linux (B1)
