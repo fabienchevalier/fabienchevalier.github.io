@@ -37,7 +37,7 @@ Dans mon cas, j'ai créé un groupe de ressource dédié à mon backend via le p
 
 [![Azure Portal](imgs/capture_potail_azure.png)](imgs/capture_potail_azure.png)
 
-Ci ce n'est pas déjà fait, il faut vous authentifier à Azure via la commande `az login` et suivre les instructions.
+Ci ce n'est pas déjà fait, il faut t'authentifier à Azure via la commande `az login` et suivre les instructions.
 
 ## Objectif
 
@@ -276,7 +276,7 @@ terraform apply
 
 [![Azure Portal](imgs/capture_terraform_apply.png)](imgs/capture_terraform_apply.png)
 
-Si tout se passe bien, la sortie de la commande apply vous donnera le nécessaire pour configurer votre app GLPI :
+Si tout se passe bien, la sortie de la commande apply te donneras le nécessaire pour configurer ton app GLPI :
 
 [![Azure Portal](imgs/capture_apply.png)](imgs/capture_apply.png)
 
@@ -286,7 +286,7 @@ Le déploiement peut prendre du temps, notamment la base de donnée MySQL (+/- 1
 
 ## Dernières étapes de configuration
 
-Dans l'interface d'installation de GLPI, saisir les informations données dans l'output terraform. Si vous avez utilisé mon fichier `input.tf`, l'utilisateur SQL sera `glpi`. La première tentative de connexion donnera cette erreur :
+Dans l'interface d'installation de GLPI, saisir les informations données dans l'output terraform. Si tu as utilisé mon fichier `input.tf`, l'utilisateur SQL sera `glpi`. La première tentative de connexion donnera cette erreur :
 
 [![Azure Portal](imgs/capture_glpi.png)](imgs/capture_glpi.png)
 
