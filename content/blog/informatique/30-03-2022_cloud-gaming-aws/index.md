@@ -23,6 +23,8 @@ showTableOfContents:
   article: True
 
 draft: False
+
+showComments: True
 ---
 ## Introduction
 
