@@ -19,20 +19,18 @@ L'ensemble du projet que j'ai réalisé est disponible en open-source
 
 ## Introduction
 
-Lors de ce hackathon, mon équipe à choisi pour sujet le développement d’un frontend via l’intégration de différentes technologies et la mise en 
-place d’une plateforme SaaS avec toutes les contraintes que ça comporte (passage à l’échelle d’un PoC vers 
-une plateforme réelle). Le projet a pour objectif de résoudre plusieurs problèmes liés aux supports de formation, à la 
-fois côté conception mais aussi pour leur conservation et adaptation côté école.
+Lors de ce hackathon, mon équipe à choisi pour sujet `Solution Libre`. Il s'agissait de :
+
+- développer le frontend d'une application à destination de formateurs et de leurs élèves
+- développer l'architecture qui permettra in fine d'héberger l'application, son backend et sa base de donnée
+- proposer une CI/CD permettant de mettre en place une livraison et une intégration continue
+
+Le back-end était fourni par l'école, et consistait en une API écrite en `Go`.
 
 ### Contexte et travail d'équipe
 
 L'ensemble des étudiants de l'école sont réunis en équipe de 10, tout niveaux et spécialités confondues. Toute la 
-difficulté étant de coordonner l'ensemble de l'équipe afin de livrer un produit fonctionnel. Ainsi, il était demandé
-de : 
-
-- Réaliser un front-end applicatif en utilisant un backend fourni par l'école
-- Réaliser l'infrastructure hébergeant le back et le front
-- Fournir une fonctionnalité de livraison et d'intégration continue (CI/CD) 
+difficulté étant de coordonner l'ensemble de l'équipe afin de livrer un produit fonctionnel. 
 
 ### Limites et difficultés
 
@@ -65,7 +63,9 @@ backend. De plus, comme indiqué sur le schéma la base de donnée utilisée est
 mettre en place une base de donnée managée mais n'étant pas encore très à l'aise avec Kubernetes sur Azure, j'ai préféré
 aller au plus simple.
 
-### IAC : Terraform
+### Infrastructure As Code
+
+#### Terraform
 
 L'enjeu étant de provisioner tout cela as code, j'ai déployé cette architecture avec Terraform. Le repo contenant
 l'infrastructure est construit comme ceci:
@@ -87,7 +87,75 @@ l'infrastructure est construit comme ceci:
 ```
 
 Cette architecture est dès le départ conçue pour être en mesure de déployer la même infrastructure en fonction de
-l'environement de production choisi. Pour la maquette, j'ai seulement réalisé la `dev`.
+l'environement de production choisi. Pour la maquette, j'ai seulement réalisé la `dev`. Je détaille dans les sections
+suivantes chaque partie du code.
+
+Le dossier Terraform contient donc à sa racine trois fichiers :
+
+- `main.tf`
+- `outputs.tf`
+- `variables.tf`
+
+Dans le fichier `main.tf`, en début de code on retrouve la déclaration du `backend`, ainsi que les `providers` requis:
+
+```terraform
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "backend-terraform-rg"
+    storage_account_name = "backendhackatonsdv"
+    container_name       = "terraform-state"
+    key                  = "terraform.tfstate"
+  }
+
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "3.63.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.21.1"
+    }
+  }
+}
+
+provider "azurerm" {
+  features {}
+  skip_provider_registration = true
+}
+
+provider "kubernetes" {
+  host                   = module.aks.host
+  client_certificate     = base64decode(module.aks.client_certificate)
+  client_key             = base64decode(module.aks.client_key)
+  cluster_ca_certificate = base64decode(module.aks.cluster_ca_certificate)
+}
+
+```
+
+Le `backend`, permettant de stocker le fichier `tfstate` consiste en un compte de stockage Azure hébergeant ce même
+fichier. Dans le cas de ce lab, j'ai utilisé un compte de stockage préalablement existant sur mon compte Azure.
+
+J'utilise les providers `azure_rm` et `kubernetes` permettant de respectivement :
+
+- intéragir avec mon compte Azure
+- intéragir avec le cluster Kubernetes déployé
+
+{{< alert "circle-info" >}}
+J'utilise un compte Azure Students fourni par l'école pour ce lab. Terraform refusais 
+systématiquement d'`apply` mon infrastructure en raison d'erreurs de droits. L'option
+`skip_provider_registration = true` m'as permis de débloquer la situation.
+{{< /alert >}}
+
+
+
+
+
+
+
+
+
+
 
 ### CI/CD
 
