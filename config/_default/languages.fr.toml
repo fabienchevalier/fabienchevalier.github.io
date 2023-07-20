@@ -17,7 +17,7 @@ dateFormat = "2 January 2006"
 [author]
    name = "Fabien CHEVALIER"
    image = "img/author.png"
-   headline = ":cloud: DevOps engineer / :musical_note: Music producer"
+   headline = ":cloud: DevOps engineer / :musical_note: Music Artist"
    bio = "DevOps :cloud: @claranet-france - :laptop: Computer geek and open-source lover"
    links = [
      { email = "mailto:contact@fchevalier.net" },
