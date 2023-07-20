@@ -1,10 +1,7 @@
 ---
 title: Provisionner sa propre instance de jeu Windows Server dans le cloud AWS via CloudFormation
 categories:
-- informatique
 - aws
-- gaming
-- devops
 date: "2023-03-30"
 description: Provisionner facilement son instance gaming en utilisant CloudFormation et NICE DCV Server sur le cloud AWS.
 

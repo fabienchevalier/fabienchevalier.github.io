@@ -5,4 +5,8 @@ description: "Homepage"
 
 ## Hi :wave:
 
-*I'm Fabien, 28 years old, currently learning the DevOps way at [Claranet](https://www.claranet.com/) as an intern in DevOps engineering.*
+:office: **Ingénieur DevOps** en alternance @[Claranet France](https://www.linkedin.com/company/claranet-france)
+
+*Passionné des technologies cloud et de tout ce qui touche à l’open-source en général, le partage me tient à coeur et j'aime prendre du temps pour aider les autres.*
+
+

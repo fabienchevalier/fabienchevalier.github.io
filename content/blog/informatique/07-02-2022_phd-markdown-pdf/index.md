@@ -1,7 +1,6 @@
 ---
 title: Rédiger son mémoire universitaire en Markdown
 categories:
-- informatique
 - markdown
 date: "2023-02-07"
 description: Générer un document type "Mémoire" au format PDF depuis des fichiers Markdown en utilisant LaTeX et Pandoc

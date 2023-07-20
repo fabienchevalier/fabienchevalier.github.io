@@ -11,14 +11,21 @@
 # ordered by weight from lowest to highest.
 
 [[main]]
-  name = ":fr: blog"
+name = ":pushpin: projets"
+pageRef = "projets"
+weight = 10
+
+[[main]]
+  name = ":book: blog"
   pageRef = "blog"
-  weight = 10
+  weight = 20
 
 [[main]]
   name = ":open_file_folder: categories"
   pageRef = "categories"
-  weight = 20
+  weight = 30
+
+
 
 # [[main]]
 #   name = "Tags"
@@ -36,7 +43,7 @@
 # the copyright notice. Configure as per the main menu above.
 
  [[footer]]
-   name = "Categories"
+   name = "Catégories"
    pageRef = "categories"
    weight = 10
 
@@ -46,6 +53,6 @@
    weight = 20
 
   [[footer]]
-    name = "About me"
+    name = "À propos"
     pageRef = "cv"
     weight = 30

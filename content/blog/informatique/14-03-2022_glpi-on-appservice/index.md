@@ -1,10 +1,7 @@
 ---
 title: Déployer GLPI 10 sur Azure App Services avec une base de donnée managée via Terraform
 categories:
-- informatique
 - azure
-- terraform
-- devops
 date: "2023-03-13"
 description: Déployer 
 slug: azure-appservices-terraform
