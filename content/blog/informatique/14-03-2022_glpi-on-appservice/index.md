@@ -3,7 +3,8 @@ title: Déployer GLPI 10 sur Azure App Services avec une base de donnée managé
 categories:
 - azure
 date: "2023-03-13"
-description: Déployer 
+description: Comment utiliser AppServices pour héberger une application web complète
+summary: En prenant pour example GLPI, je t'explique comment déployer une application web complète as code en utilisant App Services
 slug: azure-appservices-terraform
 tags:
 - azure

@@ -4,6 +4,7 @@ categories:
 - aws
 date: "2023-03-30"
 description: Provisionner facilement son instance gaming en utilisant CloudFormation et NICE DCV Server sur le cloud AWS.
+summary: Provisionner facilement son instance gaming en utilisant CloudFormation et NICE DCV Server sur le cloud AWS.
 
 slug: aws-ec2-cloudgaming-instance
 tags:

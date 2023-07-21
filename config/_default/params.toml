@@ -30,6 +30,7 @@ enableCodeCopy = true
   showRecent = true
   recentLimit = 5
 
+
 [article]
   showDate = true
   showDateUpdated = false
@@ -51,7 +52,7 @@ enableCodeCopy = true
 
 [list]
   showBreadcrumbs = false
-  showSummary = false
+  showSummary = true
   showTableOfContents = false
   showTaxonomies = false
   groupByYear = true
