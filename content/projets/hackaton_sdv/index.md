@@ -22,10 +22,10 @@ L'ensemble du projet que j'ai réalisé est disponible en open-source
 Lors de ce hackathon, mon équipe à choisi pour sujet `Solution Libre`. Il s'agissait de :
 
 - développer le frontend d'une application à destination de formateurs et de leurs élèves
-- développer l'architecture qui permettra in fine d'héberger l'application, son backend et sa base de donnée
-- proposer une CI/CD permettant de mettre en place une livraison et une intégration continue
+- développer l'architecture qui permettra in fine d'héberger l'application, son backend et sa base de données
+- proposer une CI/CD permettant de mettre en place une livraison et une intégration continue de l'applicatif et son infrastructure
 
-Le back-end était fourni par l'école, et consistait en une API écrite en `Go`.
+Le back-end étant fourni par l'école, mon travail ici se limitait à son intégration ainsi qu'a celle du front-end.
 
 ### Contexte et travail d'équipe
 
@@ -53,29 +53,31 @@ On à donc:
 - 3 namepsaces : un pour le front, un pour le back et le dernier pour le monitoring et la gestion des logs
 
 {{< alert >}}
-Lors de la réalisation, j'ai regroupé tout mes `pods` K8S au sein du même `namespace` par manque de temps. Ce projet
-n'est de plus pas du tout destiné à être mis en production. Il manque d'ailleurs aussi toute la partie 
-monitoring avec Elasticsearch/Prometheus.
+Lors de la réalisation, j'ai regroupé tout mes `pods` K8S au sein du même `namespace` par manque de temps lors du 
+développement de la partie Terraform. La partie monitoring est aussi inachevée et ne figure pas sur le repo. Cela dit,
+il n'est pas exclu que je m'y penche dans le cadre d'un article de blog dans un futur proche.
 {{< /alert >}}
 
 En l'état, l'architecture disponible sur le lien GitLab donné en préambule permet uniquement de requêter l'API du
 backend. De plus, comme indiqué sur le schéma la base de donnée utilisée est hébergée dans un `pod`. J'aurais préféré
 mettre en place une base de donnée managée mais n'étant pas encore très à l'aise avec Kubernetes sur Azure, j'ai préféré
-aller au plus simple.
+aller au plus simple. Le but de cet article reste pour moi l'occasion de garder une sorte de documentation sur le projet
+réalisé. **A ne pas utiliser en production donc** :wink:.
 
 ### Infrastructure As Code
 
-#### Terraform
+#### Contexte
 
 L'enjeu étant de provisioner tout cela as code, j'ai déployé cette architecture avec Terraform. Le repo contenant
 l'infrastructure est construit comme ceci:
 
 ```
-├── README.md
 └── terraform
+    ├── aks.tf
     ├── environment
     │   └── dev
     │       └── variables.tfvars
+    ├── kubernetes.tf
     ├── main.tf
     ├── modules
     │   └── kubernetes
@@ -83,18 +85,16 @@ l'infrastructure est construit comme ceci:
     │       ├── outputs.tf
     │       └── variables.tf
     ├── outputs.tf
-    └── variables.tf
+    ├── rg.tf
+    ├── variables.tf
+    └── vpc.tf
 ```
 
-Cette architecture est dès le départ conçue pour être en mesure de déployer la même infrastructure en fonction de
-l'environement de production choisi. Pour la maquette, j'ai seulement réalisé la `dev`. Je détaille dans les sections
-suivantes chaque partie du code.
+Cette architecture est dès le départ conçue pour être en mesure de déployer des environments `ISO` dev/pprd/prod.
+Cela permet au développeur d'être en mesure (en théorie) de tester son code en amont sur des architectures identiques
+avant de déployer l'applicatif en production.
 
-Le dossier Terraform contient donc à sa racine trois fichiers :
-
-- `main.tf`
-- `outputs.tf`
-- `variables.tf`
+#### Backend et providers
 
 Dans le fichier `main.tf`, en début de code on retrouve la déclaration du `backend`, ainsi que les `providers` requis:
 
@@ -147,15 +147,13 @@ systématiquement d'`apply` mon infrastructure en raison d'erreurs de droits. L'
 `skip_provider_registration = true` m'as permis de débloquer la situation.
 {{< /alert >}}
 
+Le provider `kubernetes` nécessite une configuration permettant de se connecter au cluster afin d'y déployer les
+ressources. Ici, je fournis les valeurs dynamiquement à partir du module `aks` que je decris plus loin dans l'article.
 
+#### Terraform et modules
 
-
-
-
-
-
-
-
+Pour une meilleure lisibilité, je préfère séparer chaque ressources déployées en un fichier distinct. A la racine
+du dossier Terraform donc, chaque 
 
 ### CI/CD
 
