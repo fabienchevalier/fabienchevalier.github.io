@@ -1,6 +1,6 @@
 ---
 title: "Blog"
-description: "C'est ici que je publie mes articles quand le temps me le permet"
+description: "Articles en rapport avec le monde de l'informatique et de la mouvance DevOps"
 groupByYear: false
 ---
 {{< lead >}}
