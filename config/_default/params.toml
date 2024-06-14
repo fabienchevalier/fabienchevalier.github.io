@@ -26,8 +26,7 @@ title = "fchevalier.net"
 
 dateFormat = "2 January 2006"
 
-[params]
-# mainSections = ["section1", "section2"]
+mainSections = ["blog", "projets"]
 
 [author]
 name = "Fabien CHEVALIER"
@@ -79,7 +78,7 @@ links = [
 ]
 
 [header]
-layout = "basic"      # valid options: basic, hamburger, hybrid, custom
+layout = "classic"      # valid options: basic, hamburger, hybrid, custom
 logo = "img/logo.png"
 showTitle = true
 
