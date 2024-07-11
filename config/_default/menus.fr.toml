@@ -16,43 +16,46 @@ pageRef = "projets"
 weight = 10
 
 [[main]]
-  name = ":book: blog"
-  pageRef = "blog"
-  weight = 20
+name = ":book: blog"
+pageRef = "blog"
+weight = 20
+
+#[[main]]
+#  name = ":open_file_folder: categories"
+#  pageRef = "categories"
+#  weight = 30
 
 [[main]]
-  name = ":open_file_folder: categories"
-  pageRef = "categories"
-  weight = 30
-
-
+name = ":clipboard: cv"
+url = "https://fchevalier.net/cv"
+weight = 30
 
 # [[main]]
 #   name = "Tags"
 #   pageRef = "tags"
 #   weight = 30
 
- [[main]]
-   identifier = "search"
-   weight = 99
-   [main.params]
-     action = "search"
+[[main]]
+identifier = "search"
+weight = 99
+[main.params]
+action = "search"
 
 # -- Footer Menu --
 # The footer menu is displayed at the bottom of the page, just before
 # the copyright notice. Configure as per the main menu above.
 
- [[footer]]
-   name = "Catégories"
-   pageRef = "categories"
-   weight = 10
+[[footer]]
+name = "Catégories"
+pageRef = "categories"
+weight = 10
 
- [[footer]]
-   name = "Tags"
-   pageRef = "tags"
-   weight = 20
+[[footer]]
+name = "Tags"
+pageRef = "tags"
+weight = 20
 
-  [[footer]]
-    name = "À propos"
-    pageRef = "cv"
-    weight = 30
+[[footer]]
+name = "À propos"
+pageRef = "cv"
+weight = 30
