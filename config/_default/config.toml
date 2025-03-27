@@ -6,11 +6,14 @@ baseURL = "https://fchevalier.net"
 defaultContentLanguage = "fr"
 description = "Blog et portofolio de Fabien, proposant des articles et projets ayant pour sujet les pratiques DevOps et le cloud"
 enableRobotsTXT = true
-paginate = 10
 summaryLength = 0
 
 googleAnalytics = 'G-0MZTJRMB11'
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
+
+[pagination]
+  pagerSize = 10
+
 
