@@ -5,6 +5,7 @@ description: "Réalisation d'une application CLI en Go"
 showComments: True
 showTableOfContents:
   article: True
+summary: Réalisé dans le cadre de ma première année de Master, ce projet noté à pour but de concevoir une application en CLI permettant de gérer/configurer le backend IAM [Casdoor](https://casdoor.org/).
 
 draft: False
 ---

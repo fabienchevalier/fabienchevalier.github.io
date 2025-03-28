@@ -5,6 +5,7 @@ description: "Réaliser l'infrastructure permettant d'héberger une application 
 showComments: True
 showTableOfContents:
   article: True
+summary: Réalisé dans le cadre de mon année de Bachelor, le Hackaton à pour but de proposer une solution informatique en une semaine. Un jury juge ensuite la solution la plus convaincante et désigne les vainqueurs.
 
 draft: False
 ---
