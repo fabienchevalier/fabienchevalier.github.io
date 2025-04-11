@@ -12,6 +12,7 @@ tags:
 - terraform
 - iac
 - terragrunt
+- dry
 showPagination:
   article: True
 
@@ -27,8 +28,12 @@ Nouvel article!
 {{< /badge >}}
 
 {{< lead >}}
-Terragrunt est un wrapper (surcouche) pour Terraform, conçue pour simplifier et optimiser la gestion des configurations d'infrastructure en suivant le principe DRY (Don't Repeat Yourself). Dans cet article, je vais tenter d'expliquer le fonctionnement de Terragrunt à travers un cas client fictif.
+Terragrunt est un wrapper (surcouche) pour Terraform, conçu pour simplifier et optimiser la gestion des configurations d'infrastructure en suivant le principe DRY (Don't Repeat Yourself). Dans cet article, je vais tenter d'expliquer le fonctionnement de Terragrunt à travers un cas client fictif.
 {{< /lead >}}
+
+{{< alert >}}
+Depuis la création du clone `open-source` de Terraform, à savoir [OpenTofu](https://opentofu.org/), Terragrunt utilisera par défaut `OpenTofu` si il est installé sur ta machine. Dans cet article, je me base sur Terraform mais la logique reste la même.
+{{< /alert >}}
 
 ## Introduction
 
@@ -46,7 +51,11 @@ Cependant, son adoption n'est pas forcément pertinente pour des projets de peti
 
 Comprendre les concepts de modularité, d’héritage de configurations ou encore de gestion des dépendances demande un investissement initial non négligeable. Cela dit, une fois compris et bien utilisé, Terragrunt peut vite se révéler indispensable. Il permet de structurer efficacement des projets complexes, et de réduire la duplication de code (factorisation) de manière élégante.
 
-Dans cet article, je vais donc tenter de t'expliquer comment démarrer un projet en me basant sur l'expérience que j'ai pu acquérir sur des infrastructures de grosses tailles.
+Dans cet article, je vais donc tenter de t'expliquer une manière d'utiliser Terragrunt, à travers un exemple fictif. Je pense qu'il est plus facile d'intégrer certains concepts appliqués à une situation concrète, plutôt que de se plonger dans la théorie. Après tout, la [doc officielle](https://terragrunt.gruntwork.io/docs/getting-started/quick-start/) est (très) bien écrite 🙃.
+
+{{< alert "circle-info" >}}
+Je présente ici une méthode d'utilisation de Terragrunt, et non **LA** méthode. A tes risques et périls 😎.
+{{< /alert >}}
 
 Les exemples que je vais fournir se basent sur des configurations GCP, mais la logique est applicable à n'importe quel cloud provider. Il ne s'agira pas ici d'expliquer comment bootstrap tel ou tel ressources, mais plutôt de te montrer comment organiser ton code Terraform avec Terragrunt.
 
@@ -54,7 +63,11 @@ Les exemples que je vais fournir se basent sur des configurations GCP, mais la l
 
 ![schema-terragrunt](imgs/key-features-terraform-code-dry.png "Schéma représentatif d'une configuration Terragrunt, issu du site de Terragrunt")
 
-Terragrunt est avant-tout un outil `CLI`, reprenant la syntaxe de Terraform dans son fonctionnement ad-hoc. On retrouvera donc les fameux `terragrunt plan`, `terragrunt apply`, etc.. Là où ça devient intéressant, c'est que Terragrunt propose en sus des fonctionnalités comme la génération dynamiques de fichiers `backend.tf` (oui, il permet aussi de créer le `bucket` à la volée si celui-ci n'existe pas), des [fonctions](https://terragrunt.gruntwork.io/docs/reference/built-in-functions/) permettant de manipuler des fichiers `HCL` (comme `read_terragrunt_config`), ou encore une gestion avancée des dépendances entre modules. Mais trêve de bavardages, la meilleure façon de comprendre Terragrunt est d'étudier un exemple concret.
+Terragrunt est avant-tout un outil `CLI`, reprenant la syntaxe de Terraform dans son fonctionnement ad-hoc. On retrouvera donc les fameux `terragrunt plan`, `terragrunt apply`, etc.. Là où ça devient intéressant, c'est que Terragrunt propose en sus des fonctionnalités comme la génération dynamiques de fichiers `backend.tf` (oui, il permet aussi de créer le `bucket` à la volée si celui-ci n'existe pas), des [fonctions](https://terragrunt.gruntwork.io/docs/reference/built-in-functions/) permettant de manipuler des fichiers `HCL` (comme `read_terragrunt_config`), ou encore une gestion avancée des dépendances entre modules.
+
+{{< alert "circle-info" >}}
+Je te recommande de lire au moins le début [du quickstart Terragrunt](https://terragrunt.gruntwork.io/docs/getting-started/quick-start/) présent dans la documentation officielle. Cela t'aideras grandement à comprendre les concepts détaillés par la suite dans cet article.
+{{< /alert >}}
 
 ## L'organisation du code
 
@@ -76,12 +89,12 @@ Je travaille beaucoup sur GCP en ce moment, pour simplifier la rédaction de mon
 On parle d'IaC, il va donc falloir créer et organiser son code via des repos Git. Les développeurs vont travailler sur leurs repos respectifs, à savoir `marketplace-frontend` et `marketplace-backend`. En parallèle, il va falloir créer un repo appelé `marketplace-infrastructure` permettant de définir l'infrastructure permettant d'héberger l'application (base de données, load balancer, etc..). Enfin, un repo `infrastructure-shared-modules` sera créé afin de gérer et versionner nos modules. Je ne vais pas m'attarder sur les questions de CI/CD et autres, ce n'est pas le sujet ici.
 
 {{< alert  >}}
-J'ai volontairement simplifié l'architecture pour l'exemple, en omettant toute la configuration IAM, Landing Zone et autres. Ici, je me focus uniquement sur la configuration Terragrunt.
+Je ne fournirais pas le code des modules, ni même la configuration complète de l'infrastructure. Je me limite ici uniquement à l'abstraction Terragrunt. J'ai cependant rédigé un article détaillant la mise en place complète d'une infrastructure via Terraform disponible [ici](https://fchevalier.net/projets/projet_etude_master/).
 {{< /alert >}}
 
 ### Schéma d'architecture
 
-Schématiquement, on se retrouve avec quelque chose de classique :
+Pour contextualiser un peu tout ça, voici un schéma d'architecture basique représentant les briques à déployer :
 
 ![scheme](./imgs/scheme.png "Schéma de l'architecture de l'application")
 
@@ -93,62 +106,70 @@ D'un premier abord, dans le cas où mon client fictif ne souhaite utiliser que d
 La logique d'organisation des dossiers est directement inspirée de l'excellent [repo maintenu par Padok](https://github.com/padok-team/docs-terraform-guidelines/tree/main), fournissant des bonnes pratiques sur l'utilisation de Terraform, et notamment le concept de `layers`. Je t'invites à le consulter.
 {{< /alert >}}
 
-Je sais donc que je dois livrer la marketplace en premier lieu, sur 4 environnements, mais avec en tête le fait que quelques semaines plus tard la demande évoluera. Là, on rentre dans un cas ou Terragrunt pourra m'être utile, car je vais pouvoir **factoriser** dès le début. Commençons d'abord par l'arborescence type des dossiers dans mon repo d'infrastructure :
+Je sais donc que je dois livrer la marketplace en premier lieu, sur 4 environnements, mais avec en tête le fait que quelques semaines plus tard la demande évoluera. Là, on rentre dans un cas ou Terragrunt pourra m'être utile, car je vais pouvoir **factoriser** dès le début.
+
+Pour illustrer mon explication, je vais me concentrer sur deux briques de l'architecture, à savoir le `load balancer` et le `cloud run`. Bien sûr, il faudra configurer bien plus de ressources afin de rendre mon architecture fonctionnelle, mais **je cherche ici à expliquer la logique de factorisation induite par Terragrunt**.
+
+#### Le repo `marketplace-infrastructure`
+
+Voici l'architecture de dossier proposée :
 
 ```plaintext
 └── layers
-    ├── certificates
-    │   ├── dev
-    │   ├── staging
-    │   ├── preprod
-    │   ├── prod
-    ├── cloud-armor
-    │   ├── web-backend
-    │   │   ├── dev
-    │   │   ├── staging
-    │   │   ├── preprod
-    │   │   ├── prod
     ├── cloud-run
     │   ├── marketplace-frontend  
     |   |   ├── dev  
     |   |   ├── staging  
     |   |   ├── preprod  
     |   |   └── prod  
-    |   ├── marketplace-backend  
+    |   |── marketplace-backend  
     |        ├── dev  
     |        ├── staging  
     |        ├── preprod  
     |        └── prod  
-    ├── sql-database
-    │   ├── dev
-    │   ├── staging
-    │   ├── preprod
-    │   └── prod
-    ├── secrets
-    │   ├── dev
-    │   ├── staging
-    │   ├── preprod
-    │   └── prod
     └── load-balancer
         ├── dev
         ├── staging
         ├── preprod
         └── prod
+etc etc...
 ```
 
-{{< alert "circle-info" >}}
-Il manque quelques briques comme la gestion DNS, VPC et autres, mais je ne vais pas m'attarder là-dessus. Je vais me concentrer sur la partie Terragrunt.
-{{< /alert >}}
+Ma ressource `cloud-run` permettra de déployer les deux services de mon application, à savoir le `frontend` et le `backend`. Je vais donc créer un dossier `cloud-run`, contenant deux sous-dossiers, un pour chaque service. Chaque service contiendra les environnements de développement, staging, preprod et prod.
 
-Au sein du dossier `layers`  on se retrouve donc avec un dossier par type d'asset. Au sein de chaque dossier, on va retrouver un dossier par environnement. Jusqu'ici, c'est classique, on pourrais d'ailleurs utiliser cette logique avec du Terraform vanilla. Attardons nous maintenant sur le contenu de ces dossiers.
+Le dossier `load-balancer` contiendra lui aussi les environnements de développement, staging, preprod et prod.
+
+#### Le repo `infrastructure-shared-modules`
+
+Le mot-clé factorisation reviens souvent dans cet article. On a parlé plus haut d'un futur besoin pour mon client d'ajouter de nouvelles applications. Au lieu d'avoir à réécrire (ou copier/coller) le code de chaque module, lors de la création d'une nouvelle application, autant tout rassembler au même endroit dans un repo séparé. Je le hiérarchise de cette manière :
+
+```plaintext
+└── modules
+    ├── cloud-run
+    ├── load-balancer
+    ├── vpc
+etc etc...
+```
+
+Ok, nous avons à présent nos deux repo, ainsi qu'une architecture de dossier claire et facile à comprendre. Passons aux fichiers de configuration.
 
 ### Fichiers de configurations Terragrunt
 
-Au sein du dossier `layers`, à la racine, je vais créer deux fichiers : `common.hcl`, ainsi que `root.hcl`.
+Au sein du dossier `layers`, dans le repo `marketplace-infrastructure` à la racine, je vais créer deux fichiers : `common.hcl`, ainsi que `root.hcl`.
+
+Terragrunt fonctionne de manière récursive. Si tu appliques la configuration Terragrunt du dossier `layers/load-balancer/dev/terragrunt.hcl`, il va remonter dans l'arborescence jusqu'à trouver les fichiers `common.hcl` et `root.hcl` et les injecter dans la configuration. Leur nommage est ici est complètement arbitraire, mais sache que Terragrunt à besoin d'au moins un fichier appelé `terragrunt.hcl` à la racine de chacune de tes stacks.
+
+{{< alert "circle-info" >}}
+Le concept de `stack` dans Terragrunt représente une unité de déploiement. Chaque `stack` correspond à un environnement spécifique (par exemple, dev, staging, prod) et peut contenir plusieurs modules ou ressources. En d'autres termes, une `stack` est une collection de ressources Terraform qui sont gérées ensemble.
+{{< /alert >}}
+
+#### Fonctions Terragrunt
+
+Terragrunt propose un certain nombre de fonctions permettant de manipuler les fichiers de configuration, de la même manière que les fonctions natives Terraform. J'en utilise quelques unes dans cet article. Sans aller dans le détail, Terragrunt propose des fonctions supplémentaires, plus globales permettant de récupérer du contexte de façon dynamique. Des exemples sont donnés et expliqués dans les sections suivantes.
 
 #### `common.hcl`
 
-Ce fichier aura pour but de définir les `locals`, c'est à dire les variables communes à l'ensemble de mes environnements. On y retrouvera donc l'`id` du projet, la region, et autres. Sans plus de suspense, le voici :
+Ce fichier a pour but de définir des [locals](https://developer.hashicorp.com/terraform/language/values/locals), c'est à dire des expressions communes à l'ensemble de mes environnements dans un contexte Terraform. On y retrouvera donc l'`id` du projet, la region, et autres. En voici un exemple :
 
 ```hcl
 # common.hcl
@@ -185,29 +206,31 @@ inputs = {}
 Dans le cas ou l'on souhaite utiliser un Cloud Provider different, comme `AWS` par exemple, il faudra adapter la configuration des `locals` en fonction de la logique de nommage de ton provider. Par exemple, pour AWS, il faudra adapter le `region` et le `project_id` en fonction de la logique de nommage AWS (`account_id` par exemple au lieu du `project_id`).
 {{< /alert >}}
 
-Le fichier `common.hcl` va donc nous permettre de centraliser la configuration de l'ensemble de nos environnements. On y retrouve donc la configuration de chaque environnement, ainsi que le `project_id` et le `region`. On y retrouve aussi une variable `inputs`, qui va nous permettre de définir des variables d'entrées communes à l'ensemble des modules.
-
-{{< alert "circle-info" >}}
-Point important : cet example de configuration pars du principe qu'un VPC dédié est créé en amont pour héberger l'ensemble des ressources.
-{{< /alert >}}
-
 Détaillons un peu ce fichier :
 
-- `root_dir` : cette ligne utilise la fonction `get_parent_terragrunt_dir()` pour obtenir le chemin du répertoire parent du fichier Terragrunt actuel. Cela permet de définir dynamiquement le chemin racine du projet, utile pour structurer les fichiers et modules
+- `root_dir` : utilise `get_parent_terragrunt_dir()` pour obtenir le chemin absolu du répertoire **du fichier parent Terragrunt** (ex. `root.hcl`). Cela évite de hardcoder le chemin racine, crucial en CI/CD où les chemins varient (ex. `/home/runner/work/...`).
 
-- `layers_path`: cette ligne construit le chemin vers le dossier `layers` en utilisant la variable `root_dir`. Cela permet de référencer les couches ou modules Terraform situés dans un dossier spécifique (layers) adjacent au répertoire racine.
+- `layers_path`: dans la même veine que la ligne précédente, cette ligne utilise la variable `root_dir` pour reconstruire le chemin absolu vers le dossier `layers` :
 
-- `environnement`: cette ligne utilise la fonction `basename()` pour extraire le nom du répertoire où se trouve le fichier Terragrunt actuel. Dans notre cas, cela permet de determiner dynamiquement l'environnement (par exemple, dev, staging, etc.) en fonction du nom du dossier contenant ce fichier.
+```plaintext
+├── common.hcl               # Parent : /mon-projet
+└── layers                   # Chemin : /mon-projet/layers
+    └── cloud-run
+```
 
-- `config`: un peu plus complexe. Cette ligne utilise la fonction `lookup()` pour rechercher une configuration spécifique à l'environnement actuel (local.environment) dans la variable `config_by_environment` expliquée ci-dessous. Si une configuration pour l'environnement actuel existe, elle sera récupérée ; sinon, une valeur par défaut (ici `{}`) sera utilisée. C'est une manière assez habile d'adapter automatiquement les configurations en fonction de l'environnement actuel sans avoir à `hardcoder` des conditions.
+- `environnement`: on complexifie un peu. Ici, la fonction `basename()` permet d'extraire le dernier segment d'un chemin donné. Utilisée de pair avec `get_original_terragrunt_dir()`, elle permet d'obtenir le nom de l'environnement actuel (par exemple, dev, staging, etc.) en se basant sur le chemin du répertoire où se situe `terragrunt.hcl`, toujours de manière **absolue**.
 
-- `config_by_environment`: ce bloc définit un objet contenant les configurations spécifiques à chaque environnement (par exemple, dev, staging, etc.). Ici, je l'utilise pour spécifier de manière globale le `project_id` et le `network` pour chaque environnement. On pourrais y ajouter d'autres configurations que l'on souhaite centraliser tel que des `tags` etc.
+- `region`: très simple : ici, la région est `hardcodée` car ne changera pas.
+
+- `config` : utilise `lookup()` (fonction Terraform) pour récupérer la configuration de l’environnement actuel. Si l’environnement n’existe pas dans `config_by_environment`, la valeur par défaut `{}` est utilisée pour éviter les erreurs.
+
+- `config_by_environment`: ce bloc définit une `map` contenant les configurations spécifiques à chaque environnement (par exemple, dev, staging, etc.). Ici, on l'utilise pour spécifier de manière globale le `project_id` et le `network` pour chaque environnement (dans l'exemple donner). On pourrait y ajouter d'autres configurations que l'on souhaite centraliser tel que des `tags` etc.
 
 {{< alert "circle-info" >}}
-Les fonctions Terragrunt sont très puissantes. Elles permettent de rendre le code `HCL` idempotent. 
+Les fonctions `lookup()` et `basename()` sont des fonctions natives de Terraform. Terragrunt n'étant qu'une surcouche de Terraform, il est possible d'utiliser ces fonctions dans les fichiers de configuration Terragrunt.
 {{< /alert >}}
 
-Pas de panique, je détaillerais plus clairement la manière dont cela fonctionne dans les parties suivantes. Pour l'instant, retiens juste que ce fichier `common.hcl` va nous permettre de centraliser les variables communes à l'ensemble de nos environnements.
+Au final, malgré la complexité apparente, ce fichier `common.hcl` ne fais que fournir des variables génériques de façon dynamique.
 
 #### `root.hcl`
 
@@ -314,7 +337,7 @@ Ce qui se résume schématiquement :
 
 {{< mermaid >}}
 flowchart TD
-    A[Configuration finale] --> B[root.hcl]
+    A[terragrunt.hcl] --> B[root.hcl]
     A --> C[common.hcl]
     A --> D[module.hcl]
     A --> E[inputs.hcl]
@@ -328,13 +351,21 @@ Pour faire simple, on peut partir du principe que Terragrunt va fusionner les fi
 
 #### Le concept de `terragrunt run-all
 
-Cette commande va permettre d'appliquer l'ensemble des configurations de manière récursive. Par exemple, si je me trouve dans le dossier `layers/, et que je lance la commande suivante :
+Cette commande va permettre d'appliquer l'ensemble des configurations de manière récursive, en une seule commande. C'est bien là que toute la puissance de Terragrunt se révèle. 
 
 ```bash
-terragrunt run-all apply .
+terragrunt run-all apply layers/
 ```
 
+En effet, si tu as bien suivi, cette commande permettra en une fois de créer l'ensemble des ressources de l'application, pour chaque environnement, et d'automatiquement générer la configuration `backend.tf`. 
 
+{{< alert "circle-info" >}}
+Pour peu que tu aie les droits sur ton cloud-provider, Terragrunt se charge même de créer le bucket `tfstates` pour toi, si celui-ci n'existe pas. DRY.
+{{< /alert >}}
+
+## Last but not least : la gestion des dépendances
+
+Tu t'es peut être posé la question à le lecture de cet article : si Terragrunt cherche à appliquer une configuration dépendante d'une autre, comment fait-il pour savoir dans quel ordre appliquer les ressources ? En effet, si je souhaite créer un `load balancer`
 
 ## Pour conclure
 
