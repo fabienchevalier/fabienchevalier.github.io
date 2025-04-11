@@ -20,7 +20,7 @@ showTableOfContents:
 
 showComments: True
 
-draft: True
+draft: False
 ---
 {{< badge >}}
 Nouvel article!
@@ -181,12 +181,168 @@ locals {
 inputs = {}
 ```
 
+{{< alert "circle-info" >}}
+Dans le cas ou l'on souhaite utiliser un Cloud Provider different, comme `AWS` par exemple, il faudra adapter la configuration des `locals` en fonction de la logique de nommage de ton provider. Par exemple, pour AWS, il faudra adapter le `region` et le `project_id` en fonction de la logique de nommage AWS (`account_id` par exemple au lieu du `project_id`).
+{{< /alert >}}
+
+Le fichier `common.hcl` va donc nous permettre de centraliser la configuration de l'ensemble de nos environnements. On y retrouve donc la configuration de chaque environnement, ainsi que le `project_id` et le `region`. On y retrouve aussi une variable `inputs`, qui va nous permettre de définir des variables d'entrées communes à l'ensemble des modules.
+
+{{< alert "circle-info" >}}
+Point important : cet example de configuration pars du principe qu'un VPC dédié est créé en amont pour héberger l'ensemble des ressources.
+{{< /alert >}}
+
 Détaillons un peu ce fichier :
 
-- `root_dir` : permet de remonter dans l'arborescence des dossiers, et de pointer vers le dossier `layers`. Je t'invites à consulter la [documentation de la fonction Terragrunt](https://terragrunt.gruntwork.io/docs/reference/built-in-functions/#get_parent_terragrunt_dir) `get_parent_terragrunt_dir()`.
+- `root_dir` : cette ligne utilise la fonction `get_parent_terragrunt_dir()` pour obtenir le chemin du répertoire parent du fichier Terragrunt actuel. Cela permet de définir dynamiquement le chemin racine du projet, utile pour structurer les fichiers et modules
 
-Cette variable me permet d'introduire le concept de fonctions Terragrunt, qui peuvent se reveler très puissantes. Elles permettent de rendre le code `HCL` idempotent. Je m'explique. Le fichier `common.hcl` ici est un fichier central, rassemblant des informations générales que l'on serais amener à fournir dans chaque dossier d'environnement dans le cas ou l'on serais sur du Terraform vanilla. Ici, on va pouvoir factoriser ces informations, et les injecter dans chaque layers. Mais comment ça marche ? 
+- `layers_path`: cette ligne construit le chemin vers le dossier `layers` en utilisant la variable `root_dir`. Cela permet de référencer les couches ou modules Terraform situés dans un dossier spécifique (layers) adjacent au répertoire racine.
 
-#### Terragrunt et le concept de hiérarchie
+- `environnement`: cette ligne utilise la fonction `basename()` pour extraire le nom du répertoire où se trouve le fichier Terragrunt actuel. Dans notre cas, cela permet de determiner dynamiquement l'environnement (par exemple, dev, staging, etc.) en fonction du nom du dossier contenant ce fichier.
 
-Avant d'aller plus loin, il faut que j'explique la manière dont ont effectue un `apply` avec Terragrunt. En effet, Terragrunt va chercher à appliquer les configurations de manière hiérarchique. Par exemple, si je me place dans le dossier `layers/cloud-run/marketplace-frontend/dev`, et que je fais un `terragrunt apply`, Terragrunt va chercher à appliquer la configuration du dossier courant, mais aussi celle des dossiers parents. Il va donc remonter l'arborescence jusqu'à trouver un fichier `terragrunt.hcl`. Dans notre cas, il va donc remonter jusqu'au dossier `layers`, et appliquer la configuration du fichier `common.hcl`.
+- `config`: un peu plus complexe. Cette ligne utilise la fonction `lookup()` pour rechercher une configuration spécifique à l'environnement actuel (local.environment) dans la variable `config_by_environment` expliquée ci-dessous. Si une configuration pour l'environnement actuel existe, elle sera récupérée ; sinon, une valeur par défaut (ici `{}`) sera utilisée. C'est une manière assez habile d'adapter automatiquement les configurations en fonction de l'environnement actuel sans avoir à `hardcoder` des conditions.
+
+- `config_by_environment`: ce bloc définit un objet contenant les configurations spécifiques à chaque environnement (par exemple, dev, staging, etc.). Ici, je l'utilise pour spécifier de manière globale le `project_id` et le `network` pour chaque environnement. On pourrais y ajouter d'autres configurations que l'on souhaite centraliser tel que des `tags` etc.
+
+{{< alert "circle-info" >}}
+Les fonctions Terragrunt sont très puissantes. Elles permettent de rendre le code `HCL` idempotent. 
+{{< /alert >}}
+
+Pas de panique, je détaillerais plus clairement la manière dont cela fonctionne dans les parties suivantes. Pour l'instant, retiens juste que ce fichier `common.hcl` va nous permettre de centraliser les variables communes à l'ensemble de nos environnements.
+
+#### `root.hcl`
+
+De la même manière que le fichier `common.hcl`, le fichier `root.hcl` va nous permettre de centraliser certaines configurations. Garde en tête que le nommage de ces fichiers est purement arbitraire, mais reflète selon moi bien leur usage.
+
+```hcl
+# root.hcl
+locals {
+  # On récupère la configuration commune définie dans common.hcl
+  common = read_terragrunt_config(find_in_parent_folders("common.hcl")).locals
+  config = local.common.config
+}
+
+remote_state {
+  backend = "gcs"
+  config = {
+    bucket   = "${local.config.project_id}-tfstates"
+    project  = local.config.project_id
+    prefix   = "tfstate/${path_relative_to_include()}"
+    location = local.common.region
+  }
+  generate = {
+    path      = "backend.tf"
+    if_exists = "skip"
+  }
+}
+```
+
+Ici, et c'est une des fonctionnalités que j'apprécie particulièrement, on va pouvoir définir la configuration du `backend` de manière centralisée. En effet, Terragrunt va se charger de générer le fichier `backend.tf` pour nous dans chaque `layers`.
+
+{{< alert "circle-info" >}}
+On va donc se retrouver avec un fichier `state` par environnement, et par module. Par exemple, pour le module `cloud-run`, on va se retrouver avec un fichier `tfstate` dans le bucket `marketplace-dev-tfstates` (pour l'environnement dev), avec le prefix `tfstate/cloud-run/marketplace-frontend`.
+{{< /alert >}}
+
+### Configuration d'un `layer`
+
+Pour le moment donc, j'ai couvert la configuration `racine`, permettant de factoriser à la base de l'arborescence. Comme dit plus haut, c'est de cette manière que Terragrunt permet de construire une infrastructure en mode `DRY`. Descendons maintenant d'un cran dans l'arborescence, et voyons comment configurer un asset `cloud-run` par exemple.
+
+#### Gestion des modules Terraform de façon DRY
+
+Naviguons dans le dossier `layers/cloud-run/`. Son contenu sera le suivant :
+
+```plaintext
+└── cloud-run
+    ├── dev
+    │   ├── inputs.hcl
+    │   └── terragrunt.hcl
+    ├── module.hcl
+    ├── preprod
+    │   ├── inputs.hcl
+    │   └── terragrunt.hcl
+    ├── prod
+    │   ├── inputs.hcl
+    │   └── terragrunt.hcl
+    └── staging
+        ├── inputs.hcl
+        └── terragrunt.hcl
+```
+
+Commençons par le contenu du fichier `module.hcl`. Rappelles toi, j'ai indiqué en intro qu'il était nécessaire de créer un repo `infrastructure-shared-modules` pour y stocker mes modules. C'est ici que je vais les référencer :
+
+```hcl
+# module.hcl
+terraform {
+  source = "git@github.com:my-org/infrastructure-shared-modules.git//modules/cloudrun?ref=cloudrun-v1.0.0"
+}
+```
+
+Concrètement, mon repo `infrastructure-shared-modules` va contenir l'ensemble de mes modules, versionnés via `git`.
+
+{{< alert >}}
+Je te conseilles vivement de `tag` tes modules, afin de pouvoir revenir en arrière si besoin. En effet, si tu fais évoluer un module, et que tu ne tag pas ta version, tu risques d'appliquer les changements à l'ensemble des configurations.
+{{< /alert >}}
+
+En backstage, Terragrunt va cloner ce `repo`, et lui fournir les `inputs` définies dans chaque fichiers `inputs.hcl`. On retrouvera d'ailleurs un dossier `.terragrunt-cache`, contenant le repo cloné dans chaque environnement.
+
+#### Que se passe-t-il lorsque je lance un `terragrunt apply` ?
+
+Un petit coup d'oeil sur le fichier `terragrunt.hcl` permet de se rendre compte de toute la logique expliquée précédemment :
+
+```hcl
+include "root" {
+  path           = find_in_parent_folders("root.hcl")
+  merge_strategy = "deep"
+}
+
+include "common" {
+  path           = find_in_parent_folders("common.hcl")
+  merge_strategy = "deep"
+}
+
+include "module" {
+  path           = find_in_parent_folders("module.hcl")
+  merge_strategy = "deep"
+}
+
+include "inputs" {
+  path           = "inputs.hcl"
+  merge_strategy = "deep"
+}
+```
+
+Ce qui se résume schématiquement :
+
+{{< mermaid >}}
+flowchart TD
+    A[Configuration finale] --> B[root.hcl]
+    A --> C[common.hcl]
+    A --> D[module.hcl]
+    A --> E[inputs.hcl]
+{{< /mermaid >}}
+
+Terragrunt parcourra depuis le dossier courant, et remontera dans l'arborescence jusqu'à trouver les fichiers `root.hcl`, `common.hcl`, `module.hcl` et `inputs.hcl`. Il va ensuite fusionner le contenu de ces fichiers, en appliquant la stratégie de fusion définie dans chaque `include`. Dans notre cas, on a choisi la stratégie `deep`, qui va permettre de fusionner les objets imbriqués. La [documentation de Terragrunt](https://terragrunt.gruntwork.io/docs/reference/config-blocks-and-attributes/#include) permettra d'en savoir plus sur les différentes stratégies de fusion, et le fonctionnement d'include en général.
+
+{{< alert "circle-info" >}}
+Pour faire simple, on peut partir du principe que Terragrunt va fusionner les fichiers de configuration en un seul fichier, en appliquant la stratégie de fusion définie dans chaque `include`. Il va ensuite appliquer cette configuration au module Terraform. Le fichier `input.hcl` contiendra donc l'équivalent d'un fichier `variables.tf` dans un module Terraform classique. Il va permettre de définir les variables d'entrées pour le module, et sera fusionné avec les autres fichiers de configuration.
+{{< /alert >}}
+
+#### Le concept de `terragrunt run-all
+
+Cette commande va permettre d'appliquer l'ensemble des configurations de manière récursive. Par exemple, si je me trouve dans le dossier `layers/, et que je lance la commande suivante :
+
+```bash
+terragrunt run-all apply .
+```
+
+
+
+## Pour conclure
+
+Je t'avais prévenu, la courbe d'apprentissage est assez raide. Mais concrètement, la difficulté se situe vraiment dans la compréhension de la logique de `merge` de Terragrunt. Pour maintenir une infrastructure `DRY`, Terragrunt utilise des fonctions et des `includes` pour fusionner les fichiers de configuration à l'`apply`.
+
+Tu l'as bien compris, la mise en place d'une architecture `DRY` avec Terragrunt reste relativement complexe de part l'abstraction qu'elle propose. Selon moi, la valeur ajoutée vaut le coup si :
+
+- Ton projet possède de nombreux environnements à gérer (dev, staging, prod, etc..).
+- Tu dois gérer un grand nombre d'applications/infrastructures identiques, mais dont la configuration diffère par environnement.
+- Tu souhaites gérer des modules Terraform de manière centralisée, et versionnée, et les appliquer à l'ensemble de tes environnements.
+
