@@ -419,6 +419,8 @@ Attardons nous un peu sur la partie `mock_output`. C'est une des fonctionnalité
 
 Concrètement, la difficulté se situe vraiment dans la compréhension de la logique de `merge` de Terragrunt. Pour maintenir une infrastructure `DRY`, Terragrunt utilise des fonctions et des `includes` pour fusionner les fichiers de configuration à l'`apply`. Cela nécessite donc (comme souvent lorsqu'on automatise) de rendre dynamique la configuration, et de recourir à des fonctions comme `get_parent_terragrunt_dir()` ou `get_original_terragrunt_dir()` afin de variabiliser un maximum.
 
+### Pro/Cons
+
 Tu l'as bien compris, la mise en place d'une architecture `DRY` avec Terragrunt reste relativement complexe de part l'abstraction qu'elle propose. Selon moi, la valeur ajoutée vaut le coup si :
 
 - Ton projet possède de nombreux environnements à gérer (dev, staging, prod, etc..).
@@ -432,6 +434,10 @@ Terragrunt devrais être un gros `no-go` si :
 - Tu n'est pas 100% à l'aise avec Terraform : pour débugger du Terragrunt il faut être en mesure de réellement comprendre ce qu'il applique en arrière plan.
 
 Cet article décris l'organisation et la manière de gérer l'infrastructure via les commandes ad-hoc Terragrunt (`terragrunt plan/apply`) afin d'en cerner le fonctionnement. Bien entendu, il est possible d'utiliser Terragrunt dans un pipeline CI/CD. Une [action managée GitHub](https://github.com/gruntwork-io/terragrunt-action) et d'ailleurs proposée par Gruntwork, l'éditeur de Terragrunt.
+
+### Bootstrap ton projet
+
+Si tu souhaites un bon point de départ pour démarrer un projet Terragrunt, [{{< icon "github" >}}clone ce repo](https://github.com/gruntwork-io/terragrunt-infrastructure-live-example/tree/main), et adapte le selon tes besoins. Tu peux par exemple reprendre la logique de découpage expliquée dans cet article (layers, modules, etc..).
 
 N'hésites pas à me contacter ou de laisser un commentaire si tu souhaites échanger sur le sujet, j'ai l'impression que Terragrunt commence à avoir le vent en poupe, et je serais ravi d'en discuter avec toi.
 
