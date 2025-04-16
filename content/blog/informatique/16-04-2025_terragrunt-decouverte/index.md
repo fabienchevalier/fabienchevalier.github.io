@@ -250,7 +250,7 @@ A la suite de la déclaration des `locals`, on va pouvoir définir la configurat
 
 ```hcl
 remote_state {
-  backend = "gcs"
+  backend = "gcs" # Google Cloud Storage, mais peut être S3, etc.
   config = {
     encrypt  = true
     bucket   = "${local.project_id}-tfstates"
