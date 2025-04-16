@@ -5,6 +5,7 @@ description: "Réalisation d'une API en Go proposant une interface REST permetta
 showComments: True
 showTableOfContents:
   article: True
+summary: Ce projet à été réalisé dans le cadre de ma première année de Master, en collaboration avec [Matteoz](https://gitlab.com/Toxma).
 
 draft: False
 ---
