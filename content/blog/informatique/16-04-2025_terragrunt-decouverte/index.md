@@ -35,6 +35,8 @@ Terragrunt est un wrapper (surcouche) pour Terraform, conçu pour simplifier et 
 Depuis la création du clone `open-source` de Terraform, à savoir [OpenTofu](https://opentofu.org/), Terragrunt utilisera par défaut `OpenTofu` si il est installé sur ta machine. Dans cet article, je me base sur Terraform mais la logique reste la même.
 {{< /alert >}}
 
+> Cet article s’appuie sur des exemples fictifs et des conventions publiques, largement documentés dans la communauté. Il ne doit pas être considéré comme un guide exhaustif, mais plutôt comme une introduction à l'utilisation de Terragrunt dans un contexte professionnel.
+
 ## Introduction
 
 Reprenant les bonnes pratiques issues du monde du développement, Terragrunt permet de réduire la duplication de code en factorisant les configurations Terraform. Cet article à pour but d'expliquer la mise en place d'un projet Terraform avec Terragrunt, et surtout de comprendre là où Terragrunt apporte de la valeur par rapport à Terraform seul. Attention, Terragrunt nécessite des bases **solides** en configurations Terraform, cet article se destine donc à un public ayant déjà pratiqué Terraform sur des infrastructures moyennes à grandes, et souhaitant en optimiser la gestion afin de passer à l'échelle. Si ce n'est pas ton cas, je t'invite à consulter [cette section](https://blog.stephane-robert.info/docs/infra-as-code/provisionnement/terraform/introduction/) du blog de Stéphane Robert pour te familiariser avec Terraform. Tout y est très bien expliqué.
